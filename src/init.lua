@@ -13,4 +13,5 @@ gb.util = require("util")
 
 --
 gb.annClass = require("ann")
+gb.populationClass = require("population")
 

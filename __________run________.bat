@@ -1,4 +1,4 @@
 cd %cd%
-lua.exe "test.lua"
+lua.exe "testGaMap.lua"
 pause
 echo %cd%
