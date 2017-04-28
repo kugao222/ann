@@ -80,7 +80,7 @@ function t:stimulate(inputs)
 	for i=1,count do
 		curOutputs = self:stimulateLayer(layers[i], curInputs) -- curInputs重用
 		curInputs = curOutputs
-		dump(curOutputs, "----------Outputs")
+		--dump(curOutputs, "----------Outputs")
 	end
 
 	--dump(curOutputs, "----------Outputs")
@@ -116,20 +116,53 @@ function t:stimulateNeuron(neuron, inputs)
 
 	return accum
 end
-
--- 
-function t:getWeights()
-	return {}
-end
-function t:getNumOfWeights()
-	return 0
-end
-function t:setWeights(ws)
-end
 -- 激励函数
 local _dActivationResponse = define.dActivationResponse
 function t:impel(netinput)
 	return  1 / ( 1 + _exp(-netinput / _dActivationResponse))
+end
+
+-- 
+function t:setWeights(ws)
+	local count = 1
+
+	local t = {}
+	local num
+	local function handleNeuron(neuron)
+		num = neuron.num+1
+		for i=1,num do
+			neuron[i] = ws[count]
+			count = count + 1
+		end
+	end
+	self:loopEverNeuron(handleNeuron)
+end
+function t:getWeights()
+	local t = {}
+	local num
+	local function handleNeuron(neuron)
+		num = neuron.num+1
+		for i=1,num do
+			t[#t+1] = neuron[i]
+		end
+	end
+	self:loopEverNeuron(handleNeuron)
+	return t
+end
+function t:loopEverNeuron(handle)
+	local layers = self.layers
+	local count = #layers
+	local curLayer
+	for i=1,count do
+		curLayer = layers[i]
+		for j=1,#curLayer do
+			handle(curLayer[j])
+		end
+	end
+end
+function t:getNumOfWeights()
+	local list = self:getWeights()
+	return #list, list
 end
 
 return t
