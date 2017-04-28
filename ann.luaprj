@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<Project Name="ann.luaprj" Cmd="" Arg="" Dir="" Toggle="true" >
+    <LuaFile RelativePath=".\src\ann.lua" />
+    <LuaFile RelativePath=".\src\define.lua" />
+    <LuaFile RelativePath=".\src\functions.lua" />
+    <LuaFile RelativePath=".\src\init.lua" />
+    <LuaFile RelativePath=".\src\util.lua" />
+</Project>
